@@ -1,0 +1,26 @@
+# Anomaly Detection Scripts
+
+Tool for running LSTM-based anomaly detection on ship trajectories and plotting example routes.
+
+## Files
+
+- `config.py`
+  Global configuration for paths (models, scaler, val/test file lists, results, plots), feature layout, indices (Lat/Lon), scaling indices and LSTM hyperparameters.
+
+- `anomaly_core.py`
+  - Reload scaler and build validation/test `DataLoader`s from parquet files.
+  - Load the base (2-feature) and 8-feature LSTM models.
+  - Run rolling multi-step forecasts with masking, compute per-timestep prediction error statistics, derive anomaly thresholds, and plot example trajectories.
+  - Plot sample of trajectories
+
+- `run_anomaly_batches.py`
+  Batch runner that:
+  - Uses the validation set to estimate mean/std of Lat/Lon squared errors and saves per-timestep thresholds.
+  - Scans the test set for anomalies for both models, writes a parquet table of per-step errors and flags, and saves a few normal/anomalous route plots.
+
+
+## Usage
+1. Adjust paths in `config.py` so that the scaler, val/test lists, and model weights exist at the configured locations.
+2. Ensure `preprocessdata` and `lstmmodel` are importable and match the feature layout and LSTM settings.
+3. Run run_anomaly_batches.py
+

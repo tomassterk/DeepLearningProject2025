@@ -1,0 +1,26 @@
+Usage of the functions
+
+To create a interpolated day from transformed ais data (.parquet) import the function: 
+
+"write_interpolated_day_to_parquet" as
+
+from write_interpolated_day_to_parquet import write_interpolated_day_to_parquet
+
+The function uses as input: 
+- root_path: path to folder with the structure folder-name/Date=YYYY-MM-DD/MMSI=.../Segment=.../.parquet
+- output_path: path for the output-folder with the structure folder-name/Date=YYYY-MM-DD/MMSI=.../Segment=.../.parquet
+- date_str: date-string in format YYYY-MM-DD for the date to analyze 
+
+To create a interpolated month from transformed ais data (.parquet) import the function 
+
+"resample_month" as 
+
+from resample_month import resample_month
+
+The function uses as inpit: 
+- root_path: path to folder with the structure folder-name/Date=YYYY-MM-DD/MMSI=.../Segment=.../.parquet
+- output_path: path for the output-folder with the structure folder-name/Date=YYYY-MM-DD/MMSI=.../Segment=.../.parquet
+- year (int): the year for the month to be resampled
+- month (int): the month to be resampled
+
+From testing, the interpolation + resampling for one day takes 1.5-2 min on laptop. 
